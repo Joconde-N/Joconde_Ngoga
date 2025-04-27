@@ -1,87 +1,77 @@
-package Assignment_one.Question1;
-
+package Assignment_one.Question2;
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-
         Scanner in=new Scanner(System.in);
-        System.out.println("===== REAL CONSTRUCTOR: Site Construction Management System =====");
-        String contractorId="";
-        while(true){
-        System.out.println("Enter Contractor ID: ");
-        contractorId = in.nextLine();
-        if (contractorId.matches("\\d+")) {
-            break; 
-        } else {
-            System.out.println("Error: The ID must contain only numbers. Please try again.");
-        }
-    }
-        
-        String contractorName="";
-        while(true){
-        System.out.println("Enter Contractor Name: ");
-        contractorName =in.nextLine();
-        if (contractorName.matches("[a-zA-Z ]+")) {
-            break;
-        } else {
-            System.out.println("Error: contractor's name must contain only letters.Try again");
-            
-        }
-    }
-        
-        double deliveryQuantity = 0;
-        while (true) {
-            try {
-                System.out.println("\n--- Material Delivery ---");
-                System.out.println("Enter material quantity to deliver (1-10 tons): ");
-                deliveryQuantity = in.nextDouble();
-                if (deliveryQuantity < 1 || deliveryQuantity > 10) {
-                    System.out.println("Error: Quantity must be between 1 and 10 tons. Please try again.");
-                } else {
-                    break;
-                }
-            } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a numeric value.");
-                in.next(); 
-            }
-        }
-        
-        
-        MaterialDelivery delivery = new MaterialDelivery(contractorId, contractorName, deliveryQuantity);
-        delivery.receiveMaterial();
-        
-       
-        double currentBalance = delivery.getMaterialBalance();
-        
-        if (currentBalance > 0) {
-            double usageQuantity = 0;
-            while (true) {
-                try {
-                    System.out.println("\n--- Material Usage ---");
-                    System.out.println("Enter material quantity to use: ");
-                    usageQuantity = in.nextDouble();
-                    if (usageQuantity > currentBalance || currentBalance - usageQuantity < 2) {
-                        System.out.println("Error: Usage quantity cannot exceed the current balance or leave less than 2 tons in stock. Please try again.");
-                    } else {
-                        break;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Please enter a numeric value.");
-                    in.next(); 
-                }
-            }
-            MaterialUsage usage = new MaterialUsage(contractorId, contractorName, usageQuantity, currentBalance);
-            usage.useMaterial();
+        System.out.println("Welcome to the LEMIGO HOTEL management system");
 
-            // Cost estimation based on usage
-            System.out.println("\n--- Cost Estimation ---");
-            CostEstimation costEstimation = new CostEstimation(contractorId, contractorName, usageQuantity);
-            costEstimation.estimateCost();
+        String guestId="";
+        while (true) {
+            System.out.print("Enter guest ID: ");
+            guestId = in.nextLine();
+            if (guestId.matches("\\d+")) {
+                break;
+            } else {
+                System.out.println("Error: Guest ID must contain digits only.");
+            }
         }
         
+        String guestName="";
+        while (true) {
+            System.out.print("Enter guest Name: ");
+            guestName = in.nextLine();
+            if (guestName.matches("[a-zA-Z ]+")) {
+                break;
+            } else {
+                System.out.println("Error: Guest name must contain only letters.Try again");
+                
+            }
+        }
+        System.out.println("Enter room type (STANDARD, DELUXE or SUITE): ");
+        String roomType=in.nextLine();
+        if(!roomType.equals("STANDARD")&&!roomType.equals("DELUXE")&&!roomType.equals("SUITE")){
+            System.out.println("Error: invalid room type! Please enter STANDARD, DELUXE or SUITE");
+            roomType=in.nextLine();
+        }
+        int stayDays = 0; 
+        while (true) {
+            try{
+        System.out.println("Enter number of days you want to stay between 1 and 30: ");
+        stayDays=in.nextInt(); 
+        if(stayDays<1||stayDays>30){
+            System.out.println("Error: invalid number of days! Please enter a number between 1 and 30");
+        } else {
+            break; 
+        }
+        }catch(Exception e){
+            System.out.println("Error: invalid input! please enter a numeric value");
+            in.nextLine(); 
+        }
+        }
+
+        in.nextLine();
+        String roomStatus="AVAILABLE";
+
+        RoomBooking room=new RoomBooking(guestId, guestName, roomType, stayDays, roomStatus);
+        room.bookRoom();
+        roomStatus = "OCCUPIED";
+
+        System.out.println("Do you want to checkout?(yes/no): ");
+        String choice=in.nextLine();
+        if(choice.equalsIgnoreCase("yes")){
+            GuestCheckout gue=new GuestCheckout(guestId, guestName, roomType, stayDays, roomStatus);
+            gue.checkoutGuest();
+
+            Billing bi=new Billing(guestId, guestName, roomType, stayDays, roomStatus);
+            bi.generateBill();
+        }else{
+            System.out.println(" Enjoy your stay :| ");
+        }
         in.close();
-        System.out.println("\nThank you for using REAL CONSTRUCTOR Management System!");
     }
+       
+
+
+    
     
 }
