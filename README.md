@@ -231,11 +231,9 @@ This system simulates material handling and cost tracking on a construction site
   Perform validations for quantity ranges as described
 
  ```java
- package Assignment_one.Question1;
-
- import java.util.Scanner;
-
- public class Main {
+package Assignment_one.Question1;
+import java.util.Scanner;
+public class ConstructionMain {
     public static void main(String[] args) {
 
         Scanner in=new Scanner(System.in);
@@ -317,7 +315,8 @@ This system simulates material handling and cost tracking on a construction site
         System.out.println("\nThank you for using REAL CONSTRUCTOR Management System!");
     }
     
- }
+}
+ 
 
  ```
 
@@ -598,9 +597,9 @@ public abstract class HotelService {
   Performs validations on room status and stay duration.    
 
  ```java
- package Assignment_one.Question2;
+package Assignment_one.Question2;
 import java.util.Scanner;
-public class Main {
+public class HotelMain {
     public static void main(String[] args) {
         Scanner in=new Scanner(System.in);
         System.out.println("Welcome to the LEMIGO HOTEL management system");
@@ -669,9 +668,9 @@ public class Main {
         }
         in.close();
     }
-          
     
 }
+
 
  ```
 
@@ -984,10 +983,12 @@ public abstract class TrafficRecord {
     - Accept and validate user input via Scanner
 
   ```java
+  
   package Assignment_one.Question3;
   import java.util.Scanner;
   import java.util.regex.Pattern;
-  public class Main {
+
+  public class TrafficMain {
     public static void main(String[] args) {
         Scanner in=new Scanner(System.in);
         System.out.println("--Welcome to the Rwanda National Police Traffic Management System--");
@@ -1048,8 +1049,9 @@ public abstract class TrafficRecord {
 
         
     }
+
     
-  }
+  } 
 
   ```
 
